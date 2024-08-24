@@ -11,6 +11,7 @@ vim.opt.clipboard:append('unnamedplus')
 vim.cmd("syntax on")
 vim.cmd('colorscheme wildcharm')
 vim.g.mapleader = ' '
+vim.g.airline_powerline_fonts = 1
 
 vim.cmd [[
   highlight GitGutterAdd guifg=#00FF00 guibg=NONE
