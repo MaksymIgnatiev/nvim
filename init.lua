@@ -19,6 +19,10 @@ vim.cmd [[
   highlight GitGutterDelete guifg=#FF0000 guibg=NONE
 ]]
 
+-- vim.cmd([[
+  -- cnoreabbrev q echoerr "E492: Not an editor command: q"
+-- ]])
+
 require('custom.my_themes')
 require('custom.smooth_scrolling')
 
