@@ -185,7 +185,9 @@ lspconfig.tsserver.setup{
 
 lspconfig.lua_ls.setup{}
 
-
+lspconfig.bashls.setup{
+    filetypes = { "sh", "bash", "zsh" }
+}
 
 require('lsp-colors').setup()
 require('trouble').setup()
