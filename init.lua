@@ -25,6 +25,7 @@ vim.cmd [[
 
 require('custom.my_themes')
 require('custom.smooth_scrolling')
+require('custom.zigconfig')
 
 local ensure_packer = function()
   local fn = vim.fn
@@ -148,8 +149,10 @@ vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap = true, 
 -- Intelisense: show error
 vim.keymap.set('n', '<leader>e', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
 
+-- Rename the identifier
+vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
 
--- Настройка клавиш для вывода окна с информацией
+-- Intelisence: show window
 vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<CR>', { silent = true, noremap = true })
 
 -- Visual mode
