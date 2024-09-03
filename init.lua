@@ -23,9 +23,17 @@ vim.cmd [[
   -- cnoreabbrev q echoerr "E492: Not an editor command: q"
 -- ]])
 
+local bufopts = { noremap = true, silent = true }
+
+
 require('custom.my_themes')
 require('custom.smooth_scrolling')
 require('custom.zigconfig')
+
+
+require('gitsigns').setup{}
+
+local packer = require('packer')
 
 local ensure_packer = function()
   local fn = vim.fn
@@ -40,7 +48,7 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-require('packer').startup(function(use)
+packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
 
@@ -101,7 +109,7 @@ require('packer').startup(function(use)
 
  
   if packer_bootstrap then
-    require('packer').sync()
+    packer.sync()
   end
 end)
 
@@ -135,36 +143,40 @@ require("presence").setup({
 -- Normal mode
 
 -- Telescope: find files 
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>', bufopts)
 
 -- Telescope: find by text
-vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>', bufopts)
 
 -- Telescope: show buffers
-vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', bufopts)
 
 -- Telescope: show help tags
-vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>', bufopts)
 
 -- Intelisense: show error
-vim.keymap.set('n', '<leader>e', ':lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>e', ':lua vim.diagnostic.open_float()<CR>', bufopts)
 
 -- Rename the identifier
-vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', bufopts)
 
 -- Intelisence: show window
-vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', bufopts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    --vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
 -- Visual mode
 
 -- Yank globaly ("+ register)
-vim.keymap.set('v', 'yg', '"+y', { noremap = true, silent = true })
+vim.keymap.set('v', 'yg', '"+y', bufopts)
 
 -- Delete without saving to buffer
-vim.keymap.set('v', '<leader>d', '"_d', { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>d', '"_d', bufopts)
 
 -- Remove part and enter insert mode
-vim.keymap.set('v', '<leader>r', '"_di', { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>r', '"_di', bufopts)
 
 -- Insert mode
 
@@ -175,20 +187,34 @@ local lspconfig = require('lspconfig')
 
 lspconfig.tsserver.setup{
   on_attach = function(client, bufnr)
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   end
 }
 
+-- `$ bun i -g lua-language-server`
 lspconfig.lua_ls.setup{}
 
+-- `$ curl -L https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux -o marksman`
+-- `$ chmod +x marksman`
+-- `$ sudo mv marksman /usr/local/bin/`
+lspconfig.marksman.setup{
+	cmd = { "/usr/local/bin/marksman" },
+	on_attach = on_attach,
+	settings = { marksman = { files = { include = { "**/*.md" } } } }
+}
+
+-- `$ bun i -g bash-language-server`
 lspconfig.bashls.setup{
     filetypes = { "sh", "bash", "zsh" }
 }
 
+-- `$ rustup component add rust-analyzer`
+-- or
+-- `$ cargo install rust-analyzer`
+lspconfig.rust_analyzer.setup {
+  flags = {
+    debounce_text_changes = 150,
+  }
+}
 require('lsp-colors').setup()
 require('trouble').setup()
 require('lspsaga').setup({})
@@ -202,11 +228,13 @@ require("null-ls").setup({
   },
 })
 
+local telescope_sorters = require('telescope.sorters')
+
 require('telescope').setup{
   defaults = {
     -- настройки по умолчанию
-    prompt_prefix = "> ",
-    selection_caret = "> ",
+    prompt_prefix = "➜ ",
+    selection_caret = "➜ ",
     entry_prefix = "  ",
     multi_icon = "<>",
     sorting_strategy = "descending",
@@ -215,8 +243,8 @@ require('telescope').setup{
       horizontal = { mirror = false },
       vertical = { mirror = false },
     },
-    file_sorter = require('telescope.sorters').get_fuzzy_file,
-    generic_sorter = require('telescope.sorters').get_generic_fuzzy_sorter,
+    file_sorter = telescope_sorters.get_fuzzy_file,
+    generic_sorter = telescope_sorters.get_generic_fuzzy_sorter,
     winblend = 0,
     border = {},
     color_devicons = true,
@@ -228,6 +256,12 @@ require('telescope').setup{
   }
 }
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- `$ bun i -g pyright`
+lspconfig.pyright.setup {
+  capabilities = capabilities
+}
 
 local cmp = require'cmp'
 
@@ -252,14 +286,8 @@ cmp.setup({
   })
 })
 
--- Настройка lspconfig для работы с nvim-cmp
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-lspconfig.pyright.setup {
-  capabilities = capabilities
-}
 
 
-require('gitsigns').setup{}
 
 vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#00FF00', bg = 'NONE' })
 vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = '#FFFF00', bg = 'NONE' })
