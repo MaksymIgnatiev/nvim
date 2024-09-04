@@ -1,3 +1,5 @@
+-- ~/.config/nvim/lua/plugins/config/neoscroll.lua
+
 require('neoscroll').setup({
   mappings = {                 -- Keys to be mapped to their corresponding default scrolling animation
     '<C-u>', '<C-d>',
