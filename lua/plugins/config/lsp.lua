@@ -5,7 +5,8 @@ local lspconfig = require('lspconfig')
 
 
 -- `$ bun i -g typescript-language-server`
-lspconfig.tsserver.setup{}
+lspconfig.ts_ls.setup{}
+-- lspconfig.tsserver.setup{}
 
 -- `$ bun i -g lua-language-server`
 lspconfig.lua_ls.setup{}
@@ -23,14 +24,6 @@ lspconfig.bashls.setup{
     filetypes = { "sh", "bash", "zsh" }
 }
 
--- `$ rustup component add rust-analyzer`
--- or
--- `$ cargo install rust-analyzer`
-lspconfig.rust_analyzer.setup {
-  flags = {
-    debounce_text_changes = 150,
-  }
-}
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -38,3 +31,25 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 lspconfig.pyright.setup {
   capabilities = capabilities
 }
+
+-- `$ rustup component add rust-analyzer`
+-- or
+-- `$ cargo install rust-analyzer`
+lspconfig.rust_analyzer.setup{
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				command = "clippy"
+			},
+			inlayHints = {
+				typeHints = true,
+				parameterHints = true,
+			},
+		}
+	},
+	flags = {
+		debounce_text_changes = 150,
+	}
+}
+
+

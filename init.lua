@@ -12,3 +12,5 @@ require('global')
 require('plugins')
 -- './lua/essential'
 require('essential')
+
+vim.cmd(':e')
