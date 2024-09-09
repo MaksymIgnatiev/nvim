@@ -12,6 +12,8 @@ vim.cmd("syntax on")
 vim.g.mapleader = ' '
 vim.g.airline_powerline_fonts = 1
 vim.o.termguicolors = true
+vim.opt.signcolumn = "yes"
+
 
 vim.cmd [[
   highlight GitGutterAdd guifg=#00FF00 guibg=NONE
@@ -20,4 +22,9 @@ vim.cmd [[
 ]]
 
 
-
+vim.diagnostic.config({
+    update_in_insert = true, -- update the lsp server in insert mode
+    -- virtual_text = false,    -- Disable virtual text
+    signs = true,            -- Keep signs in the sign column
+    underline = true,        -- Underline diagnostics in the text
+})

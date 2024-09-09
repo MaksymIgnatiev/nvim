@@ -21,7 +21,6 @@ local bindings = {
     String = { fg = colors.yellow },
     Identifier = { fg = colors.lightblue },
     Statement = { fg = colors.magenta },
-    Braces = { fg = colors.green },
     Function = { fg = colors.yellow },
     PreProc = { fg = colors.lightblue },
     Type = { fg = colors.emerald },

@@ -45,6 +45,11 @@ lspconfig.rust_analyzer.setup{
 				typeHints = true,
 				parameterHints = true,
 			},
+			diagnostics = {
+				enable = true,
+                enableExperimental = true,
+                disabled = { "unused_variables", "unused_mut" }  -- Disable unused variable tips
+            },
 		}
 	},
 	flags = {
