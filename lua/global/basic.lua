@@ -6,7 +6,7 @@ vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.softtabstop = 4
 vim.o.mouse = 'a'
-vim.o.shell = '/bin/zsh'
+-- vim.o.shell = '/bin/zsh'
 vim.opt.clipboard:append('unnamedplus')
 vim.cmd("syntax on")
 vim.g.mapleader = ' '
