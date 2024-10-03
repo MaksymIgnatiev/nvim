@@ -1,14 +1,12 @@
 local plugins = {
 	'wbthomason/packer.nvim',               -- Packer can manage itself
-	'tpope/vim-surround',                   -- Surrounding ysw)
+	'tpope/vim-surround',
 	'preservim/nerdtree',                   -- NerdTree
 	'tpope/vim-commentary',                 -- For Commenting gcc & gc
 	'vim-airline/vim-airline',              -- Status bar
 	'norcalli/nvim-colorizer.lua',              -- Color preview
 	'ryanoasis/vim-devicons',               -- Developer Icons
 	'tc50cal/vim-terminal',                 -- Vim Terminal
-	'preservim/tagbar',                     -- Tagbar for code navigation
-	'terryma/vim-multiple-cursors',         -- CTRL + N for multiple cursors
 	'hrsh7th/nvim-cmp',                     -- Autocomplete
 	'hrsh7th/cmp-buffer',                   -- Buffer source for nvim-cmp
 	'hrsh7th/cmp-path',                     -- Path source for nvim-cmp
@@ -38,7 +36,12 @@ local plugins = {
 	'lvimuser/lsp-inlayhints.nvim',         -- inline infered types in rust
 	'neovim/nvim-lspconfig',
 	'hoob3rt/lualine.nvim',
+	'christoomey/vim-tmux-navigator',
+	'jose-elias-alvarez/typescript.nvim',
+	'mhartington/formatter.nvim',
+	'folke/flash.nvim',
+	'godlygeek/tabular',
+	'numToStr/Comment.nvim',
 }
-
 
 return plugins

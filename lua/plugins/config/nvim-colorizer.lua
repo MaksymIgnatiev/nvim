@@ -1,14 +1,16 @@
+-- #f00
 require('colorizer').setup(
 {
 	-- Specific files
 	-- use "!name" to exclude a file
 	'*', -- Highlight all files, but you can specify specific file types like 'css', 'javascript', etc.
-	css = { rgb_fn = true }, -- Enable parsing rgb(...) functions in CSS.
 },
 {
 	-- Global
 	names = false, -- "Names" such as `Green`, `Blue`, `Gray`, `Magenta`, etc
-	rgb_fn = true
+	rgb_fn = true,
+	RRGGBBAA = true,        -- #RRGGBBAA hex codes
+	hsl_fn   = true,        -- CSS hsl() and hsla() functions
 }
 )
 
@@ -24,3 +26,7 @@ require('colorizer').setup(
 	-- -- Available modes: foreground, background
 	-- mode     = 'background'; -- Set the display mode.
 -- }
+-- Auto enabling on each buffer
+vim.cmd [[
+    autocmd BufRead,BufNewFile * lua require'colorizer'.attach_to_buffer()
+]]

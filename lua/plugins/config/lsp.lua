@@ -1,11 +1,24 @@
 -- ~/.config/nvim/lua/plugins/config/lsp.lua
 
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = { "ts_ls", "pyright", "lua_ls", "rust_analyzer"}
+})
+
+
 
 local lspconfig = require('lspconfig')
 
 
 -- `$ bun i -g typescript-language-server`
-lspconfig.ts_ls.setup{}
+lspconfig.ts_ls.setup({
+	on_attach = function (client, bufnr)
+		require("lsp-inlayhints").on_attach(client, bufnr)
+	end,
+	capabilities = require("cmp_nvim_lsp").default_capabilities()
+})
+
+-- 
 -- lspconfig.tsserver.setup{}
 
 -- `$ bun i -g lua-language-server`
@@ -36,6 +49,9 @@ lspconfig.pyright.setup {
 -- or
 -- `$ cargo install rust-analyzer`
 lspconfig.rust_analyzer.setup{
+	on_attach = function(client, bufnr)
+        require('lsp-inlayhints').on_attach(client, bufnr)
+    end,
 	settings = {
 		["rust-analyzer"] = {
 			checkOnSave = {

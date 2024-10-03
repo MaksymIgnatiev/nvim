@@ -6,13 +6,16 @@ vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.softtabstop = 4
 vim.o.mouse = 'a'
--- vim.o.shell = '/bin/zsh'
+vim.o.shell = '/bin/zsh'
 vim.opt.clipboard:append('unnamedplus')
 vim.cmd("syntax on")
 vim.g.mapleader = ' '
 vim.g.airline_powerline_fonts = 1
 vim.o.termguicolors = true
 vim.opt.signcolumn = "yes"
+vim.g.tmux_navigator_verbose = 1
+
+
 
 
 vim.cmd [[
