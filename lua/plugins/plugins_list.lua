@@ -25,14 +25,8 @@ local plugins = {
 	'folke/lsp-colors.nvim',
 	'glepnir/lspsaga.nvim',
 	'kosayoda/nvim-lightbulb',
-	{
-		'nvim-telescope/telescope.nvim',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	},
-	{
-		'lewis6991/gitsigns.nvim',
-		requires = { 'nvim-lua/plenary.nvim' }
-	},
+	'nvim-telescope/telescope.nvim',
+	'lewis6991/gitsigns.nvim',
 	'lvimuser/lsp-inlayhints.nvim',         -- inline infered types in rust
 	'neovim/nvim-lspconfig',
 	'hoob3rt/lualine.nvim',

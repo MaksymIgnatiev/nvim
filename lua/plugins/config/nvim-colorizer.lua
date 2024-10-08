@@ -26,7 +26,11 @@ require('colorizer').setup(
 	-- -- Available modes: foreground, background
 	-- mode     = 'background'; -- Set the display mode.
 -- }
--- Auto enabling on each buffer
-vim.cmd [[
-    autocmd BufRead,BufNewFile * lua require'colorizer'.attach_to_buffer()
-]]
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    require('colorizer').attach_to_buffer()
+  end,
+})
+

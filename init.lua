@@ -1,18 +1,16 @@
--- ~/.config/nvim/init.lua
+-- ./init.lua
 -- #f00
 
-local config = vim.fn.stdpath('config')
+local env = require("env")
 
--- print("Config: " .. config)
+local config = env.config
 
-local os_name = vim.loop.os_uname().sysname
-
-if os_name == "Linux" then
+if env.os == "Linux" then
 
 	-- Linux specific configuration
 	package.path = package.path .. ";" .. config .. "/lua/?/init.lua;" .. config .. "/lua/plugins/?.lua;" .. config .. "/lua/plugins/config/?.lua;" .. config .. "/lua/global/?.lua"
 
-elseif os_name == "Windows_NT" then
+elseif env.os == "Windows_NT" then
 
 	-- Windows specific configuration
 	package.path = package.path .. ";" .. config .. "\\lua\\?\\init.lua;" .. config .. "\\lua\\plugins\\?.lua;" .. config .. "\\lua\\plugins\\config\\?.lua;" .. config .. "\\lua\\global\\?.lua"

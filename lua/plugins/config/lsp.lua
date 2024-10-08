@@ -1,76 +1,70 @@
 -- ~/.config/nvim/lua/plugins/config/lsp.lua
 
-require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = { "ts_ls", "pyright", "lua_ls", "rust_analyzer"}
-})
+local env =	require "env"
+local functions = require "functions"
+local config = require "config"
 
+
+local lsps
+
+if env.is_termux then
+	lsps = functions.filterStrings(config.lsp.default, config.lsp.termux_exclude)
+else
+	lsps = config.lsp.default
+end
+
+require("mason").setup()
+require("mason-lspconfig").setup({ ensure_installed = lsps })
 
 
 local lspconfig = require('lspconfig')
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-
--- `$ bun i -g typescript-language-server`
-lspconfig.ts_ls.setup({
-	on_attach = function (client, bufnr)
-		require("lsp-inlayhints").on_attach(client, bufnr)
-	end,
-	capabilities = require("cmp_nvim_lsp").default_capabilities()
-})
-
--- 
--- lspconfig.tsserver.setup{}
-
--- `$ bun i -g lua-language-server`
-lspconfig.lua_ls.setup{}
-
--- `$ curl -L https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux -o marksman`
--- `$ chmod +x marksman`
--- `$ sudo mv marksman /usr/local/bin/`
-lspconfig.marksman.setup{
-	cmd = { "/usr/local/bin/marksman" },
-	settings = { marksman = { files = { include = { "**/*.md" } } } }
-}
-
--- `$ bun i -g bash-language-server`
-lspconfig.bashls.setup{
-    filetypes = { "sh", "bash", "zsh" }
-}
-
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
--- `$ bun i -g pyright`
-lspconfig.pyright.setup {
-  capabilities = capabilities
-}
-
--- `$ rustup component add rust-analyzer`
--- or
--- `$ cargo install rust-analyzer`
-lspconfig.rust_analyzer.setup{
-	on_attach = function(client, bufnr)
-        require('lsp-inlayhints').on_attach(client, bufnr)
-    end,
-	settings = {
-		["rust-analyzer"] = {
-			checkOnSave = {
-				command = "clippy"
-			},
-			inlayHints = {
-				typeHints = true,
-				parameterHints = true,
-			},
-			diagnostics = {
-				enable = true,
-                enableExperimental = true,
-                disabled = { "unused_variables", "unused_mut" }  -- Disable unused variable tips
-            },
+-- Define a mapping of LSP names to their configurations
+local lsp_configs = {
+	["ts_ls"] = {
+		capabilities = capabilities
+	},
+	["pyright"] = {
+		capabilities = capabilities
+	},
+	["lua_ls"] = {},
+	["rust_analyzer"] = {
+		on_attach = function(client, bufnr)
+			require('lsp-inlayhints').on_attach(client, bufnr)
+		end,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy"
+				},
+				inlayHints = {
+					typeHints = true,
+					parameterHints = true,
+				},
+				diagnostics = {
+					enable = true,
+					enableExperimental = true,
+					disabled = { "unused_variables", "unused_mut" }
+				}
+			}
+		},
+		flags = {
+			debounce_text_changes = 150
 		}
 	},
-	flags = {
-		debounce_text_changes = 150,
-	}
+	["marksman"] = {
+		-- cmd = { "/usr/local/bin/marksman" },
+		settings = { marksman = { files = { include = { "**/*.md" } } } }
+	},
+	["bashls"] = {
+		filetypes = { "sh", "bash", "zsh" }
+	},
+	["omnisharp"] = {}
 }
 
-
+for _, lsp in ipairs(lsps) do
+	if lsp_configs[lsp] then
+		lspconfig[lsp].setup(lsp_configs[lsp])
+	end
+end

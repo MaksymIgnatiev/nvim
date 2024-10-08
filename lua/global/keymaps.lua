@@ -6,7 +6,7 @@ local bufopts = { noremap = true, silent = true }
 -- Normal mode
 
 -- Telescope: find files 
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>', bufopts)
+vim.keymap.set('n', '<C-p>', ':Telescope find_files<CR>', bufopts)
 
 -- Telescope: find by text
 vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>', bufopts)
@@ -18,7 +18,7 @@ vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>', bufopts)
 vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>', bufopts)
 
 -- NerdTree: toggle 
-vim.keymap.set('n', '<leader>nt', ':NERDTreeToggle<CR>', bufopts)
+vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>', bufopts)
 
 -- Intelisense: show error
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
