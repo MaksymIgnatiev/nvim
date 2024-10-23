@@ -1,64 +1,70 @@
 
 local colors = {
-    bg = "#0a110a",        -- Background color
-    fg = "#99ee99",        -- Foreground color (text)
-    green = "#55cc55",     -- Green color for various highlights
-    dark_green = "#115511", -- Dark green for subtle elements
-    comment = "#226622",   -- Color for comments
+    bg = "#0a110a",
+    fg = "#99ee99",
+    green = "#55cc55",
+    dark_green = "#115511",
+    comment = "#226622",
     yellow = "#dddd44",
-    blue = "#0077ff",      -- For constants
-    lightblue = "#00aaff", -- For variables and object properties
-    purple = "#aa44aa",    -- For block keywords
+    blue = "#0077ff",
+    lightblue = "#00aaff",
+    purple = "#aa44aa",
     magenta = "#dd22cc",
     cyan = "#00ddff",
     white = "#eeffee",
     black = "#000000",
     emerald = "#00cc66",
-    orange = "#d7875f",    -- Light orange/brown for strings
-    darkblue = "#0066aa",  -- Dark blue for function/variable keywords
-
-    cursor_line = "#225522", -- Cursor line background
-    visual = "#336633",    -- Visual mode selection color
-    search = "#114411",     -- Search highlight color
+    orange = "#d7875f",
+    darkblue = "#0077cc",
+	red = "#aa0000",
+    cursor_line = "#225522",
+    visual = "#336633",
+    search = "#114411",
 }
 
--- Set the background color
-vim.o.background = "dark" -- Set the background to dark
+
+vim.o.background = "dark"
 
 
--- Set highlights
+
 local highlight = function(group, guifg, guibg, gui)
     vim.cmd(string.format("highlight %s guifg=%s guibg=%s gui=%s", group, guifg or "NONE", guibg or "NONE", gui or "NONE"))
 end
 
-highlight("Normal", colors.fg, colors.bg)                -- Normal text
-highlight("Comment", colors.comment, colors.bg)          -- Comments
-highlight("Visual", colors.fg, colors.visual)            -- Visual mode selection
-highlight("Search", colors.fg, colors.search)            -- Search highlight
+highlight("Normal", colors.fg, colors.bg)
+highlight("Comment", colors.comment, colors.bg)
+highlight("Visual", colors.fg, colors.visual)
+highlight("Search", colors.fg, colors.search)
 
-highlight("StatusLineNC", colors.comment, colors.bg)     -- Non-current status line
+highlight("StatusLineNC", colors.comment, colors.bg)
 
-highlight("Identifier", colors.lightblue)                -- Variable names, object properties
-highlight("Function", colors.yellow)                     -- Function/method names
-highlight("Keyword", colors.darkblue)                    -- Function/variable keywords (e.g., let, const)
-highlight("Statement", colors.purple)                    -- Block keywords (for, if, else, etc.)
-highlight("Type", colors.green)                          -- Type names
-highlight("Constant", colors.blue)                       -- Constants
-highlight("Number", colors.green)                        -- Number literals
-highlight("String", colors.orange)                       -- Strings
+highlight("TSKeywordImport", colors.magenta)
+highlight("Identifier", colors.lightblue)
+highlight("Function", colors.yellow)
+highlight("Keyword", colors.darkblue)
+highlight("Statement", colors.purple)
+highlight("Type", colors.green)
+highlight("Constant", colors.blue)
+highlight("Number", colors.green)
+highlight("String", colors.orange)
 
-highlight("@keyword", colors.darkblue)                   -- For keywords like import/export
-highlight("@string", colors.orange)                      -- For strings
-highlight("@function", colors.yellow)                    -- For function/method names
-highlight("@constant", colors.blue)                      -- For constants
-highlight("@variable", colors.lightblue)                 -- For variables and object properties
-highlight("@method", colors.yellow)                      -- For methods (ensure global methods are colored properly)
-highlight("@type", colors.green)
+highlight("@keyword", colors.darkblue)
+highlight("@string", colors.orange)
+highlight("@function", colors.yellow)
+highlight("@constant", colors.blue)
+highlight("@variable", colors.lightblue)
+highlight("@method", colors.yellow)
+highlight("@type", colors.emerald)
+highlight("@function.builtin", colors.yellow)
+highlight("@lsp.type.regexp", colors.red)
+highlight("@string.regexp", colors.red)
+highlight("@constructor", colors.blue)
+highlight("@attribute.builtin", colors.red)
+highlight("@module.builtin", colors.blue)
 
-
-highlight("Include", colors.green)                       -- Include directives
-highlight("Macro", colors.green)                         -- Macros
-highlight("Define", colors.green)                        -- Preprocessor macros
+highlight("Include", colors.green)
+highlight("Macro", colors.green)
+highlight("Define", colors.green)
 
 
 

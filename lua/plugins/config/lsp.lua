@@ -45,7 +45,7 @@ local lsp_configs = {
 				diagnostics = {
 					enable = true,
 					enableExperimental = true,
-					disabled = { "unused_variables", "unused_mut" }
+					disabled = { "unused_variables", "unused_mut" , "unlinked-file"}
 				}
 			}
 		},
@@ -60,7 +60,9 @@ local lsp_configs = {
 	["bashls"] = {
 		filetypes = { "sh", "bash", "zsh" }
 	},
-	["omnisharp"] = {}
+	["omnisharp"] = {},
+	["clangd"] = {},
+	["zsl"] = {}
 }
 
 for _, lsp in ipairs(lsps) do

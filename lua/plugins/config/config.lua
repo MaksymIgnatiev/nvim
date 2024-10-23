@@ -8,7 +8,7 @@
 local R = {}
 
 R.lsp = {
-	default = { "ts_ls", "pyright", "lua_ls", "rust_analyzer", "bashls", "omnisharp", "marksman"},
+	default = { "ts_ls", "pyright", "lua_ls", "rust_analyzer", "bashls", "omnisharp", "marksman", "zls", "clangd"},
 	termux_exclude = { "rust_analyzer", "lua_ls" },
 }
 
