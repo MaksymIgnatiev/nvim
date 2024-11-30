@@ -26,9 +26,5 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   },
-
-	custom_captures = {
-		["arrow_function"] = "@function.arrow"
-	}
 }
 

@@ -4,7 +4,7 @@ require('formatter').setup({
             function()
                 return {
                     exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--use-tabs", "--tab-width", "4" },
+                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
                     stdin = true
                 }
             end
@@ -13,16 +13,14 @@ require('formatter').setup({
             function()
                 return {
                     exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--use-tabs", "--tab-width", "4" },
+                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
                     stdin = true
                 }
             end
         },
-        -- Add other file types if needed
     }
 })
 
--- Autoformat on save
 vim.cmd([[
   augroup FormatAutogroup
     autocmd!

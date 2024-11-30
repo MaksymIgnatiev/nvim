@@ -1,5 +1,5 @@
 local colors = {
-	bg = "#0a110a",
+	bg = "#001100",
 	fg = "#99ee99",
 	green = "#55cc55",
 	dark_green = "#115511",
@@ -67,11 +67,10 @@ highlight("@function.builtin", colors.yellow)
 highlight("@function", colors.yellow)
 highlight("@keyword", colors.darkblue)
 highlight("@keyword.conditional", colors.purple)
--- highlight("@keyword.exception", colors.purple)
--- highlight("@keyword.export", colors.purple)
+highlight("@keyword.exception", colors.purple)
+highlight("@keyword.export", colors.purple)
 highlight("@keyword.import", colors.purple)
 highlight("@keyword.return", colors.purple)
-highlight("@lsp.type.regexp", colors.red)
 highlight("@method", colors.yellow)
 highlight("@module.builtin", colors.blue)
 highlight("@punctuation", colors.white)
@@ -82,8 +81,11 @@ highlight("@string.regexp", colors.red)
 highlight("@string.special", colors.lightorange)
 highlight("@tag.builtin", colors.red)
 highlight("@tag", colors.red)
--- highlight("@type.builtin", colors.emerald)
--- highlight("@type", colors.emerald)
+highlight("@type.builtin", colors.emerald)
+highlight("@type", colors.emerald)
 highlight("@variable.builtin", colors.green)
 highlight("@variable", colors.lightblue)
 highlight("@variable.parameter", colors.green)
+highlight("@variable.parameter.builtin", colors.green)
+highlight("@local.definition.parameter", colors.red)
+

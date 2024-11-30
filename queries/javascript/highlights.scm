@@ -1,1 +1,3 @@
-(arrow_function "=>" @function.arrow)
+; inherits: javascript
+
+[ "=>" ] @function.arrow
