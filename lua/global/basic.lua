@@ -14,6 +14,7 @@ vim.g.airline_powerline_fonts = 1
 vim.o.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.g.tmux_navigator_verbose = 1
+vim.opt.scrolloff = 8
 
 
 

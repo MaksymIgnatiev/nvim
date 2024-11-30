@@ -1,11 +1,8 @@
 require'nvim-treesitter.configs'.setup {
-  -- List of parsers to install
   ensure_installed = { "typescript", "javascript", "html", "css", "lua", "python", "rust", "python", "c", },
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
-  -- Automatically install missing parsers when entering buffer
   auto_install = true,
 
   -- Enable syntax highlighting (Tree-sitter's primary feature)
@@ -29,5 +26,9 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   },
+
+	custom_captures = {
+		["arrow_function"] = "@function.arrow"
+	}
 }
 

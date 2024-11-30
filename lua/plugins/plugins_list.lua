@@ -35,7 +35,9 @@ local plugins = {
 	'mhartington/formatter.nvim',
 	'folke/flash.nvim',
 	'godlygeek/tabular',
-	'numToStr/Comment.nvim',
+  "HiPhish/rainbow-delimiters.nvim",
+'numToStr/Comment.nvim',
 }
 
 return plugins
+
