@@ -11,30 +11,15 @@ local bufopts = { noremap = true, silent = true, expr = false }
 -- Telescope: find files
 vim.keymap.set('n', '<C-p>', ':Telescope find_files<CR>', bufopts)
 
--- Telescope: find by text
--- vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>', bufopts)
 
--- Telescope: show buffers
-vim.keymap.set('n', '<C-b>', ':Telescope buffers<CR>', bufopts)
-
--- Telescope: show help tags
--- vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>', bufopts)
+-- Telescope: live grep the contence in all files
+vim.keymap.set('n', '<C-b>', ':Telescope live_grep<CR>', bufopts)
 
 -- NerdTree: toggle
 vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>', bufopts)
 
--- Intelisense: show error
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
-
--- Go to definition
-vim.keymap.set('n', '<leader>gd', ':Telescope lsp_definitions<CR>', bufopts)
-
--- Align selected area with regex
+-- Align pattern with regex
 vim.keymap.set('n', '<leader>t', [[:lua require("functions").TabularizeWithInput()<CR>]], bufopts)
-
-
--- Intelisence: show window
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 
 vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz', bufopts)
 vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz', bufopts)
@@ -42,11 +27,6 @@ vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz', bufopts)
 vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz', bufopts)
 
 
--- Intelisense: rename identifier
-vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-
--- Intelisense: code action
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
 -- Cancel selection/hithlighting
 vim.keymap.set('n', '<Esc>', ':nohlsearch<Bar>echo<CR>', bufopts)
@@ -71,8 +51,8 @@ vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format() end, bufopts)
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', bufopts)
 
 -- Substitute the word under cursor
-vim.keymap.set('n', '<leader>sg', ':%s/\\<<C-r><C-w\\>/<C-r><C-w>/gI<Left><Left><Left>', bufopts)
-vim.keymap.set('n', '<leader>sl', ':s/\\<<C-r><C-w\\>/<C-r><C-w>/gI<Left><Left><Left>', bufopts)
+vim.keymap.set('n', '<leader>sg', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
+vim.keymap.set('n', '<leader>sl', ':s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 
 
 -- Visual mode
@@ -110,9 +90,6 @@ vim.keymap.set('v', '<leader>sm', ":!sort ", {
 
 -- Preserve paste
 vim.keymap.set('x', '<leader>p', '"_dP', bufopts)
-
--- Substitute the word under cursor
-vim.keymap.set('v', '<leader>sl', ":'<,'>s/\\<<C-r><C-w\\>/<C-r><C-w>/gI<Left><Left><Left>", bufopts)
 
 -- Insert mode
 

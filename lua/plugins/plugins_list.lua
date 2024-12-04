@@ -1,43 +1,42 @@
 local plugins = {
-	'wbthomason/packer.nvim',               -- Packer can manage itself
-	'tpope/vim-surround',
-	'preservim/nerdtree',                   -- NerdTree
-	'tpope/vim-commentary',                 -- For Commenting gcc & gc
-	'vim-airline/vim-airline',              -- Status bar
-	'norcalli/nvim-colorizer.lua',              -- Color preview
-	'ryanoasis/vim-devicons',               -- Developer Icons
-	'tc50cal/vim-terminal',                 -- Vim Terminal
-	'hrsh7th/nvim-cmp',                     -- Autocomplete
-	'hrsh7th/cmp-buffer',                   -- Buffer source for nvim-cmp
-	'hrsh7th/cmp-path',                     -- Path source for nvim-cmp
-	'hrsh7th/cmp-nvim-lsp',                 -- LSP source for nvim-cmp
-	'hrsh7th/cmp-nvim-lua',                 -- Lua source for nvim-cmp
-	'saadparwaiz1/cmp_luasnip',             -- Snippets source for nvim-cmp
-	'L3MON4D3/LuaSnip',                     -- Snippet engine
-	'andweeb/presence.nvim',                -- RPC for discord
-	'karb94/neoscroll.nvim',                -- Smooth scrolling
-	'williamboman/mason.nvim',
-	'williamboman/mason-lspconfig.nvim',
-	'jose-elias-alvarez/null-ls.nvim',
-	'nvim-lua/plenary.nvim',
-	'nvim-treesitter/nvim-treesitter',
-	'folke/trouble.nvim',
-	'folke/lsp-colors.nvim',
-	'glepnir/lspsaga.nvim',
-	'kosayoda/nvim-lightbulb',
-	'nvim-telescope/telescope.nvim',
-	'lewis6991/gitsigns.nvim',
-	'lvimuser/lsp-inlayhints.nvim',         -- inline infered types in rust
-	'neovim/nvim-lspconfig',
-	'hoob3rt/lualine.nvim',
+	'andweeb/presence.nvim', -- RPC for discord
 	'christoomey/vim-tmux-navigator',
-	'jose-elias-alvarez/typescript.nvim',
-	'mhartington/formatter.nvim',
 	'folke/flash.nvim',
+	'folke/lsp-colors.nvim',
+	'folke/trouble.nvim',
+	'glepnir/lspsaga.nvim',
 	'godlygeek/tabular',
-  "HiPhish/rainbow-delimiters.nvim",
-'numToStr/Comment.nvim',
+	"HiPhish/rainbow-delimiters.nvim",
+	'hoob3rt/lualine.nvim',
+	'hrsh7th/cmp-buffer', -- Buffer source for nvim-cmp
+	'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
+	'hrsh7th/cmp-nvim-lua', -- Lua source for nvim-cmp
+	'hrsh7th/cmp-path',  -- Path source for nvim-cmp
+	'hrsh7th/nvim-cmp',
+	'jose-elias-alvarez/null-ls.nvim',
+	'jose-elias-alvarez/typescript.nvim',
+	'karb94/neoscroll.nvim',     -- Smooth scrolling
+	'kosayoda/nvim-lightbulb',
+	'L3MON4D3/LuaSnip',          -- Snippet engine
+	'lewis6991/gitsigns.nvim',
+	'lvimuser/lsp-inlayhints.nvim', -- inline infered types in
+	'mhartington/formatter.nvim',
+	'neovim/nvim-lspconfig',
+	'norcalli/nvim-colorizer.lua', -- Color preview
+	'numToStr/Comment.nvim',
+	'nvim-lua/plenary.nvim',
+	'nvim-telescope/telescope.nvim',
+	'nvim-treesitter/nvim-treesitter',
+	'preservim/nerdtree',    -- NerdTree
+	'ryanoasis/vim-devicons',
+	'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
+	'tc50cal/vim-terminal',
+	'tpope/vim-commentary',
+	'tpope/vim-surround',   -- Suroundings
+	'vim-airline/vim-airline', -- Status bar
+	'wbthomason/packer.nvim',
+	'williamboman/mason-lspconfig.nvim',
+	'williamboman/mason.nvim',
 }
 
 return plugins
-

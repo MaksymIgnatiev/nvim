@@ -14,6 +14,9 @@ local function array_includes(array, str)
     end
     return false
 end
+
+---Require all files in the given directory, except for `init.lua`
+---@param dir string
 local function require_all_files_in_dir(dir)
 	local files = vim.fn.globpath(dir, "*.lua", false, true)
 
