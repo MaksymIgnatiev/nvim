@@ -8,7 +8,7 @@ local config = env.config
 if env.os == "Linux" then
 
 	-- Linux specific configuration
-	package.path = package.path .. ";" .. config .. "/lua/?/init.lua;" .. config .. "/lua/plugins/?.lua;" .. config .. "/lua/plugins/config/?.lua;" .. config .. "/lua/global/?.lua"
+	package.path = package.path .. ";" .. config .. "/lua/?/init.lua;" .. config .. "/lua/plugins/?.lua;" .. config .. "/lua/plugins/config/?.lua;" .. config .. "/lua/global/?.lua;" .. config ..  "/lua/global/theme/?.lua"
 
 elseif env.os == "Windows_NT" then
 

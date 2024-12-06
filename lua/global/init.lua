@@ -1,4 +1,4 @@
 require("basic")
--- require("troll")
+-- require("troll") -- do not uncomment this line
 require("keymaps")
-require("theme")
+require("theme/init")
