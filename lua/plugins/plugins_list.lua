@@ -14,7 +14,6 @@ local plugins = {
 	'hrsh7th/cmp-path',  -- Path source for nvim-cmp
 	'hrsh7th/nvim-cmp',
 	'jose-elias-alvarez/null-ls.nvim',
-	'jose-elias-alvarez/typescript.nvim',
 	'karb94/neoscroll.nvim',     -- Smooth scrolling
 	'kosayoda/nvim-lightbulb',
 	'L3MON4D3/LuaSnip',          -- Snippet engine

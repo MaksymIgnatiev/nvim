@@ -2,10 +2,10 @@
 
 -- Russian keyboard layout on qwerty layout
 
-require("keyboard_qwerty_ru")
+require("global.keyboard_qwerty_ru")
 
 local bufopts = { noremap = true, silent = true, expr = false }
-
+local functions = require("global.functions")
 
 -- Normal mode
 -- Telescope: find files
@@ -19,7 +19,7 @@ vim.keymap.set('n', '<C-b>', ':Telescope live_grep<CR>', bufopts)
 vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>', bufopts)
 
 -- Align pattern with regex
-vim.keymap.set('n', '<leader>t', [[:lua require("functions").TabularizeWithInput()<CR>]], bufopts)
+vim.keymap.set('n', '<leader>t', functions.TabularizeWithInput, bufopts)
 
 vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz', bufopts)
 vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz', bufopts)
@@ -34,8 +34,8 @@ vim.keymap.set('n', '<Esc>', ':nohlsearch<Bar>echo<CR>', bufopts)
 
 
 vim.keymap.set('n', 'J', 'mzJ`z', bufopts)
-vim.keymap.set('n', '<C-d>', '<C-d>zz', bufopts)
-vim.keymap.set('n', '<C-u>', '<C-u>zz', bufopts)
+-- vim.keymap.set('n', '<C-d>', '<C-d>zz', bufopts)
+-- vim.keymap.set('n', '<C-u>', '<C-u>zz', bufopts)
 vim.keymap.set('n', 'n', 'nzzzv', bufopts)
 vim.keymap.set('n', 'N', 'Nzzzv', bufopts)
 
@@ -72,7 +72,7 @@ vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", bufopts)
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", bufopts)
 
 -- Align selected area with regex
-vim.keymap.set('v', '<leader>t', [[:<C-U>lua require("functions").TabularizeWithInput(true)<CR>]], bufopts)
+vim.keymap.set('v', '<leader>t', function() functions.TabularizeWithInput(true) end, bufopts)
 
 
 -- Sort selection automatically

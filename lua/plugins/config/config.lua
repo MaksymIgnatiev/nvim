@@ -1,15 +1,14 @@
+--- @class LSP
+--- @field default string[] # Default LSPs
+--- @field termux_exclude string[] # Array of strings representing LSPs to exclude inside Termux (just for fun, or because of incompatibility)
 
---- @class Lsp
---- @field default string[] Default lsps
---- @field termux_exclude string[] Array of strings representing LSPs to exclude in Termux
----
---- @class ConfigModule
---- @field lsp Lsp A table containing LSP configurations
-local R = {}
+--- @class Config
+--- @field lsp LSP
+local M = {}
 
-R.lsp = {
-	default = { "ts_ls", "pyright", "lua_ls", "rust_analyzer", "bashls", "omnisharp", "marksman", "zls", "clangd"},
+M.lsp = {
+	default = { "ts_ls", "pyright", "lua_ls", "rust_analyzer", "bashls", "omnisharp", "marksman", "zls", "clangd", "asm_lsp"},
 	termux_exclude = { "rust_analyzer", "lua_ls" },
 }
 
-return R
+return M

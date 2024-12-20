@@ -1,8 +1,9 @@
 -- ~/.config/nvim/lua/plugins/config/lsp.lua
 
+
 local env = require "env"
-local functions = require "functions"
-local config = require "config"
+local functions = require "global.functions"
+local config = require "plugins.config.config"
 
 
 local lsps
@@ -41,12 +42,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
 		vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 		vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+		vim.keymap.set('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
 	end,
 })
 
-local util = require("lspconfig.util")
+local lspconfig = require('lspconfig')
+local util = lspconfig.util
 
 local lsp_configs = {
+	["asm_lsp"] = {
+		-- cmd = { "asm-lsp" },
+		filetypes = { "asm", "s" },
+		root_dir = lspconfig.util.root_pattern(".git", "."),
+	},
 	["ts_ls"] = {
 		on_attach = function(client, bufnr)
 			require('lsp-inlayhints').on_attach(client, bufnr)
@@ -92,7 +100,7 @@ local lsp_configs = {
 					parameterHints = true,
 				},
 				diagnostics = {
-					enable = true,
+					enable = false,
 					enableExperimental = true,
 					disabled = { "unused_variables", "unused_mut", "unlinked-file" }
 				}
@@ -113,8 +121,6 @@ local lsp_configs = {
 	["clangd"] = {},
 	["zls"] = {}
 }
-
-local lspconfig = require('lspconfig')
 
 for _, lsp in ipairs(lsps) do
 	if lsp_configs[lsp] then

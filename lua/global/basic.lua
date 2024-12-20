@@ -28,7 +28,6 @@ vim.cmd [[
 
 vim.diagnostic.config({
     update_in_insert = true, -- update the lsp server in insert mode
-    -- virtual_text = false,    -- Disable virtual text
     signs = true,            -- Keep signs in the sign column
     underline = true,        -- Underline diagnostics in the text
 })

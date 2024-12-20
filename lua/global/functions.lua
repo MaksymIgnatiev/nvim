@@ -1,5 +1,11 @@
 -- ~/.config/nvim/lua/global/functions.lua
 
+--- Helper functions
+-- @module Functions
+
+---@class Functions
+---@field TabularizeWithInput fun(selected?: boolean)
+---@field filterStrings fun(arr1: string[], arr2: string[]): string[]
 local M = {}
 
 ---Run the Tabularize command with promt for regex

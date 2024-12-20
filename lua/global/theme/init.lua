@@ -1,4 +1,4 @@
----Custom colors for customization
+--- Custom colors for customization
 local colors = {
 	bg = "#001100",
 	fg = "#99ee99",
@@ -25,6 +25,7 @@ local colors = {
 }
 
 vim.o.background = "dark"
+
 ---@alias GuiValue '"bold"'|'"italic"'|'"underline"'|'"undercurl"'|'"strikethrough"'|'"reverse"'|'"NONE"'
 ---@alias GuiAttributes string|table<GuiValue, boolean>
 ---@param group string # The name of the highlight group.
@@ -60,10 +61,10 @@ end
 
 ---Require all files in the current directory manualy
 local function require_all_modules()
-	require("pmenu")
-	require("treesitter")
-	require("telescope")
-	require("cmp")
+	require("global.theme.pmenu")
+	require("global.theme.treesitter")
+	require("global.theme.telescope")
+	require("global.theme.cmp")
 end
 
 -- Uncomment to include all modules manualy
@@ -92,7 +93,7 @@ end
 require_all_modules_automaticaly(vim.fn.stdpath('config') .. '/lua/global/theme')
 
 
--- Define basic colors
+-- Define basic colors for general usage
 highlight("Comment", colors.comment, colors.bg)
 highlight("Conditional", colors.purple)
 highlight("Constant", colors.blue)

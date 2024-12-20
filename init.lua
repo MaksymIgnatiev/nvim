@@ -1,21 +1,24 @@
 -- ./init.lua
--- #f00
 
 local env = require("env")
 
 local config = env.config
 
-if env.os == "Linux" then
-
-	-- Linux specific configuration
-	package.path = package.path .. ";" .. config .. "/lua/?/init.lua;" .. config .. "/lua/plugins/?.lua;" .. config .. "/lua/plugins/config/?.lua;" .. config .. "/lua/global/?.lua;" .. config ..  "/lua/global/theme/?.lua"
-
-elseif env.os == "Windows_NT" then
-
-	-- Windows specific configuration
-	package.path = package.path .. ";" .. config .. "\\lua\\?\\init.lua;" .. config .. "\\lua\\plugins\\?.lua;" .. config .. "\\lua\\plugins\\config\\?.lua;" .. config .. "\\lua\\global\\?.lua"
-
+---@param path string
+local function append_path(path)
+	package.path = package.path .. ";" .. path
 end
+
+if env.os == "Linux" then
+	-- Linux specific configuration
+	append_path(config .. "/lua/?.lua")
+	append_path(config .. "/lua/?/init.lua")
+elseif env.os == "Windows_NT" then
+	-- Windows specific configuration
+	append_path(config .. "\\lua\\?.lua")
+	append_path(config .. "\\lua\\?\\init.lua")
+end
+
 
 -- Load all the configuration
 
@@ -25,5 +28,3 @@ require('global')
 require('plugins')
 -- './lua/essential'
 require('essential')
-
--- vim.cmd(':e')
