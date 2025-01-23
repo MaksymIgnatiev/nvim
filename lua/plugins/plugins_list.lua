@@ -1,3 +1,10 @@
+---@class TableConfig
+---@field [1] string
+---@field run string | function | nil
+---@field requires string[] | nil
+---@field branch string | nil
+
+---@type (string|TableConfig)[]
 local plugins = {
 	'andweeb/presence.nvim', -- RPC for discord
 	'christoomey/vim-tmux-navigator',
@@ -8,15 +15,11 @@ local plugins = {
 	'godlygeek/tabular',
 	"HiPhish/rainbow-delimiters.nvim",
 	'hoob3rt/lualine.nvim',
-	'hrsh7th/cmp-buffer', -- Buffer source for nvim-cmp
-	'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
-	'hrsh7th/cmp-nvim-lua', -- Lua source for nvim-cmp
-	'hrsh7th/cmp-path',  -- Path source for nvim-cmp
+	{'neoclide/coc.nvim', branch = "master", run = "npm ci"},
 	'hrsh7th/nvim-cmp',
 	'jose-elias-alvarez/null-ls.nvim',
 	'karb94/neoscroll.nvim',     -- Smooth scrolling
 	'kosayoda/nvim-lightbulb',
-	'L3MON4D3/LuaSnip',          -- Snippet engine
 	'lewis6991/gitsigns.nvim',
 	'lvimuser/lsp-inlayhints.nvim', -- inline infered types in
 	'mhartington/formatter.nvim',
@@ -28,7 +31,6 @@ local plugins = {
 	'nvim-treesitter/nvim-treesitter',
 	'preservim/nerdtree',    -- NerdTree
 	'ryanoasis/vim-devicons',
-	'saadparwaiz1/cmp_luasnip', -- Snippets source for nvim-cmp
 	'tc50cal/vim-terminal',
 	'tpope/vim-commentary',
 	'tpope/vim-surround',   -- Suroundings
@@ -36,6 +38,21 @@ local plugins = {
 	'wbthomason/packer.nvim',
 	'williamboman/mason-lspconfig.nvim',
 	'williamboman/mason.nvim',
+	'MysticalDevil/inlay-hints.nvim', -- inlay hints (that works)
+	'mrcjkb/rustaceanvim', -- tools for rust
+	'typed-rocks/ts-worksheet-neovim', -- inline results from running js/ts files
+	'lukas-reineke/indent-blankline.nvim', -- indentation highlights
+	{
+		"kndndrj/nvim-dbee",
+		requires = { "MunifTanjim/nui.nvim" },
+		run = function()
+			-- Install tries to automatically detect the install method.
+			-- if it fails, try calling it with one of these parameters:
+			--    "curl", "wget", "bitsadmin", "go"
+			require("dbee").install()
+		end,
+		config = function() require("dbee").setup(--[[optional config]]) end
+	}
 }
 
 return plugins

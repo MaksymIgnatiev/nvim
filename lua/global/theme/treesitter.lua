@@ -1,7 +1,6 @@
 -- Custom colors for treesitter
 
-local theme = require("global.theme")
-local colors, highlight, link = theme.colors, theme.highlight, theme.link
+local link = require("global.theme.config").link
 
 link("@attribute.builtin", "Red")
 link("@character.special", "Constant")
