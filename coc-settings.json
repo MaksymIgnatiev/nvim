@@ -7,12 +7,16 @@
   "typescript.suggest.autoImports": true,
   "suggest.autoTrigger": "always",
   "snippets.ultisnips.pythonPrompt": false,
-	"suggest.floatConfig": {
-		"border": true,
-		"rounded": true,
-		"borderhighlight": "CocFloatingBorder",
-	},
-	"coc.preferences.enableMarkdown": true,
-	"coc.preferences.promptInput": true,
-	"codeLens.enable": true,
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "borderhighlight": "CocFloatingBorder"
+  },
+  "coc.preferences.enableMarkdown": true,
+  "coc.preferences.promptInput": true,
+  "codeLens.enable": true,
+	"snippets.ultisnips.directories": [
+		"UltiSnips",
+		"~/.config/nvim/coc/ultisnips"
+	],
 }

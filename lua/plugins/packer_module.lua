@@ -16,7 +16,7 @@ local ensure_packer = function()
 end
 
 ---Use the packer to install/sync all plugins
----@param use fun(plugin: string)
+---@param use fun(plugin: string|TableConfig)
 packer.startup(function(use)
 	local packer_bootstrap = ensure_packer()
 

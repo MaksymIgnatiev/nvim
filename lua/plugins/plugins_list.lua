@@ -42,17 +42,8 @@ local plugins = {
 	'mrcjkb/rustaceanvim', -- tools for rust
 	'typed-rocks/ts-worksheet-neovim', -- inline results from running js/ts files
 	'lukas-reineke/indent-blankline.nvim', -- indentation highlights
-	{
-		"kndndrj/nvim-dbee",
-		requires = { "MunifTanjim/nui.nvim" },
-		run = function()
-			-- Install tries to automatically detect the install method.
-			-- if it fails, try calling it with one of these parameters:
-			--    "curl", "wget", "bitsadmin", "go"
-			require("dbee").install()
-		end,
-		config = function() require("dbee").setup(--[[optional config]]) end
-	}
+	'honza/vim-snippets',
+	'neoclide/coc-snippets'
 }
 
 return plugins
