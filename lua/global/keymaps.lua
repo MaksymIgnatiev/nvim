@@ -34,8 +34,8 @@ map('n', '<Esc>', ':nohlsearch<Bar>echo<CR>', bufopts)
 
 
 map('n', 'J', 'mzJ`z', bufopts)
--- map('n', '<C-d>', '<C-d>zz', bufopts)
--- map('n', '<C-u>', '<C-u>zz', bufopts)
+map('n', '<C-d>', '<C-d>zz', bufopts)
+map('n', '<C-u>', '<C-u>zz', bufopts)
 map('n', 'n', 'nzzzv', bufopts)
 map('n', 'N', 'Nzzzv', bufopts)
 
@@ -49,7 +49,7 @@ map('n', '<leader>d', '"_d', bufopts)
 map('n', '<leader>f', function() vim.lsp.buf.format() end, bufopts)
 
 -- Make current file executable (shame on you, windows)
-map('n', '<leader>x', '<cmd>!chmod +x %<CR>', bufopts)
+map('n', '<leader>x', '<cmd>!chmod +x "%"<CR>', bufopts)
 
 -- Substitute the word under cursor
 map('n', '<leader>sg', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')

@@ -39,7 +39,7 @@ local plugins = {
 	'williamboman/mason-lspconfig.nvim',
 	'williamboman/mason.nvim',
 	'MysticalDevil/inlay-hints.nvim', -- inlay hints (that works)
-	'mrcjkb/rustaceanvim', -- tools for rust
+	-- 'mrcjkb/rustaceanvim', -- tools for rust
 	'typed-rocks/ts-worksheet-neovim', -- inline results from running js/ts files
 	'lukas-reineke/indent-blankline.nvim', -- indentation highlights
 	'honza/vim-snippets',

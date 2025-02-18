@@ -10,7 +10,6 @@ local config = require "plugins.config.config"
 
 vim.opt.signcolumn = 'yes'
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local on_attach = function(client, bufnr)
 	local opts = { buffer = client.buf }
@@ -92,32 +91,32 @@ local servers = {
 		}
 	},
 	["pyright"] = {},
-	["lua_ls"] = {
+	-- ["lua_ls"] = {
 
-		-- on_init = function(client)
-		-- 	if client.workspace_folders then
-		-- 		local path = client.workspace_folders[1].name
-		-- 		if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-		-- 			return
-		-- 		end
-		-- 	end
+	-- 	-- on_init = function(client)
+	-- 	-- 	if client.workspace_folders then
+	-- 	-- 		local path = client.workspace_folders[1].name
+	-- 	-- 		if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+	-- 	-- 			return
+	-- 	-- 		end
+	-- 	-- 	end
 
-		-- 	client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-		-- 		runtime = { version = 'LuaJIT' },
-		-- 		workspace = {
-		-- 			checkThirdParty = false,
-		-- 			library = { vim.env.VIMRUNTIME },
-		-- 		},
-		-- 	})
-		-- end,
-		settings = { Lua = {} },
-		root_dir = function(fname)
-			return lspconfig.util.root_pattern(".luarc.json", ".git")(fname)
-				or lspconfig.util.find_git_ancestor(fname)
-				or vim.loop.os_homedir()
-		end
-	},
-	['rust_analyzer'] = {
+	-- 	-- 	client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+	-- 	-- 		runtime = { version = 'LuaJIT' },
+	-- 	-- 		workspace = {
+	-- 	-- 			checkThirdParty = false,
+	-- 	-- 			library = { vim.env.VIMRUNTIME },
+	-- 	-- 		},
+	-- 	-- 	})
+	-- 	-- end,
+	-- 	settings = { Lua = {} },
+	-- 	root_dir = function(fname)
+	-- 		return lspconfig.util.root_pattern(".luarc.json", ".git")(fname)
+	-- 			or lspconfig.util.find_git_ancestor(fname)
+	-- 			or vim.loop.os_homedir()
+	-- 	end
+	-- },
+	-- ['rust_analyzer'] = {
 		-- capabilities = capabilities,
 		-- cmd = { "rustup", "run", "stable", "rust-analyzer" },
 		-- settings = {
@@ -169,8 +168,8 @@ local servers = {
 
 			-- }
 		-- }
-	},
-	["marksman"] = {
+	-- },
+	["remark_ls"] = {
 		-- cmd = { "/usr/local/bin/marksman" },
 
 		settings = { files = { include = { "**/*.md" } } }
@@ -181,7 +180,8 @@ local servers = {
 	["omnisharp"] = {},
 	["clangd"] = {},
 	["zls"] = {},
-	["html"] = {}
+	["html"] = {},
+	-- ["sumneko_lua"] = {}
 }
 
 local lsps = vim.tbl_keys(servers)
@@ -225,9 +225,6 @@ for server_name, server_setup in pairs(servers) do
 		server_config.on_attach = on_attach
 	end
 
-	if not server_config.capabilities then
-		server_config.capabilities = capabilities
-	end
 
 	lspconfig[server_name].setup(server_config)
 	::continue::

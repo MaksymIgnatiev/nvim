@@ -1,22 +1,28 @@
 {
-  "suggest.triggerCompletionWait": 50,
-  "suggest.minTriggerInputLength": 2,
-  "suggest.noselect": false,
-  "coc.preferences.useQuickfixForLocations": true,
-  "diagnostic.virtualText": true,
-  "typescript.suggest.autoImports": true,
-  "suggest.autoTrigger": "always",
-  "snippets.ultisnips.pythonPrompt": false,
-  "suggest.floatConfig": {
-    "border": true,
-    "rounded": true,
-    "borderhighlight": "CocFloatingBorder"
-  },
-  "coc.preferences.enableMarkdown": true,
-  "coc.preferences.promptInput": true,
-  "codeLens.enable": true,
+	"suggest.triggerCompletionWait": 50,
+	"suggest.minTriggerInputLength": 2,
+	"suggest.noselect": false,
+	"coc.preferences.useQuickfixForLocations": true,
+	"diagnostic.virtualText": true,
+	"typescript.suggest.autoImports": true,
+	"suggest.autoTrigger": "always",
+	"snippets.ultisnips.pythonPrompt": false,
+	"suggest.floatConfig": {
+		"border": true,
+		"rounded": true,
+		"borderhighlight": "CocFloatingBorder"
+	},
+	"coc.preferences.enableMarkdown": true,
+	"coc.preferences.promptInput": true,
+	"codeLens.enable": true,
 	"snippets.ultisnips.directories": [
 		"UltiSnips",
 		"~/.config/nvim/coc/ultisnips"
 	],
+	"clangd.arguments": [
+		"--compile-commands-dir=.",
+		"--background-index",
+		"--clang-tidy"
+	],
+	"clangd.path": "clangd"
 }

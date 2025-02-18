@@ -24,7 +24,7 @@ require('formatter').setup({
 vim.cmd([[
   augroup FormatAutogroup
     autocmd!
-    autocmd BufWritePost *.js,*.ts FormatWrite
+    autocmd BufWritePost *.js,*.ts,*.jsx,*.tsx FormatWrite
   augroup END
 ]])
 
