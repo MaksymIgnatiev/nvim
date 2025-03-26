@@ -1,8 +1,8 @@
 ---@class TableConfig
 ---@field [1] string
----@field run string | function | nil
----@field requires string[] | nil
----@field branch string | nil
+---@field run? string | function
+---@field requires? string[]
+---@field branch? string
 
 ---@type (string|TableConfig)[]
 local plugins = {
@@ -14,36 +14,38 @@ local plugins = {
 	'glepnir/lspsaga.nvim',
 	'godlygeek/tabular',
 	"HiPhish/rainbow-delimiters.nvim",
+	'honza/vim-snippets',
 	'hoob3rt/lualine.nvim',
-	{'neoclide/coc.nvim', branch = "master", run = "npm ci"},
+	'hrsh7th/cmp-nvim-lsp',
 	'hrsh7th/nvim-cmp',
+	'hrsh7th/cmp-path',
 	'jose-elias-alvarez/null-ls.nvim',
-	'karb94/neoscroll.nvim',     -- Smooth scrolling
+	'karb94/neoscroll.nvim', -- Smooth scrolling
 	'kosayoda/nvim-lightbulb',
+	'L3MON4D3/LuaSnip',
 	'lewis6991/gitsigns.nvim',
-	'lvimuser/lsp-inlayhints.nvim', -- inline infered types in
+	'lukas-reineke/indent-blankline.nvim', -- indentation highlights
+	'lvimuser/lsp-inlayhints.nvim',     -- inline infered types in
+	'mbbill/undotree',
 	'mhartington/formatter.nvim',
+	'MysticalDevil/inlay-hints.nvim', -- inlay hints (that works)
 	'neovim/nvim-lspconfig',
 	'norcalli/nvim-colorizer.lua', -- Color preview
 	'numToStr/Comment.nvim',
 	'nvim-lua/plenary.nvim',
 	'nvim-telescope/telescope.nvim',
 	'nvim-treesitter/nvim-treesitter',
-	'preservim/nerdtree',    -- NerdTree
+	'preservim/nerdtree', -- NerdTree
 	'ryanoasis/vim-devicons',
+	{ "stevearc/aerial.nvim", config = function() require("aerial").setup() end },
 	'tc50cal/vim-terminal',
 	'tpope/vim-commentary',
-	'tpope/vim-surround',   -- Suroundings
-	'vim-airline/vim-airline', -- Status bar
+	'tpope/vim-surround',           -- Suroundings
+	'typed-rocks/ts-worksheet-neovim', -- inline results from running js/ts files
+	'vim-airline/vim-airline',      -- Status bar
 	'wbthomason/packer.nvim',
 	'williamboman/mason-lspconfig.nvim',
 	'williamboman/mason.nvim',
-	'MysticalDevil/inlay-hints.nvim', -- inlay hints (that works)
-	-- 'mrcjkb/rustaceanvim', -- tools for rust
-	'typed-rocks/ts-worksheet-neovim', -- inline results from running js/ts files
-	'lukas-reineke/indent-blankline.nvim', -- indentation highlights
-	'honza/vim-snippets',
-	'neoclide/coc-snippets'
 }
 
 return plugins

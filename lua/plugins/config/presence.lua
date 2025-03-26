@@ -3,7 +3,7 @@
 require("presence").setup({
     -- General options
     auto_update         = true,
-    neovim_image_text   = "The One True Text Editor",
+    neovim_image_text   = "Emacs",
     main_image          = "neovim",
     log_level           = nil,
     debounce_timeout    = 10,

@@ -14,17 +14,12 @@ if env.os == "Linux" then
 	append_path(config .. "/lua/?.lua")
 	append_path(config .. "/lua/?/init.lua")
 elseif env.os == "Windows_NT" then
-	-- Windows specific configuration
+	-- Windows specific configuration (why?)
 	append_path(config .. "\\lua\\?.lua")
 	append_path(config .. "\\lua\\?\\init.lua")
 end
 
-
 -- Load all the configuration
-
--- './lua/global'
 require('global')
--- './lua/plugins'
 require('plugins')
--- './lua/essential'
 require('essential')

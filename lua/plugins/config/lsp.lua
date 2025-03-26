@@ -1,37 +1,47 @@
 -- ~/.config/nvim/lua/plugins/config/lsp.lua
 
-
 local env = require "env"
 local functions = require "global.functions"
 local config = require "plugins.config.config"
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local map = vim.keymap.set
+local lspconfig = require('lspconfig')
 
 
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if client and client.server_capabilities.inlayHintProvider then
+			vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+		end
+	end
+})
 
 
+-- keep signcolumn persistant
 vim.opt.signcolumn = 'yes'
-
 
 local on_attach = function(client, bufnr)
 	local opts = { buffer = client.buf }
 
 	require("inlay-hints").on_attach(client, bufnr)
 
-	vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-	vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-	vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-	vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-	vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-	vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-	vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-	vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-	vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-	vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-	vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-	vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-	vim.keymap.set('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+	map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+	map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+	map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+	map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+	map('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+	map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+	map('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+	map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+	map({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+	map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+	map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+	map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
 end
 
-local lspconfig = require('lspconfig')
 
 
 -- How to configure popular servers for inlay hints described here:
@@ -58,7 +68,6 @@ local lspconfig = require('lspconfig')
 local servers = {
 	["cssls"] = {},
 	["asm_lsp"] = {
-		-- cmd = { "asm-lsp" },
 		filetypes = { "asm", "s" },
 		root_dir = lspconfig.util.root_pattern(".git", "."),
 	},
@@ -90,89 +99,103 @@ local servers = {
 			},
 		}
 	},
-	["pyright"] = {},
-	-- ["lua_ls"] = {
+	["pylsp"] = {
+		settings = {
+			pylsp = {
+				plugins = {
+					pycodestyle = {
+						ignore = { 'W391' },
+						maxLineLength = 100
+					}
+				}
+			}
+		}
+	},
+	["lua_ls"] = {
 
-	-- 	-- on_init = function(client)
-	-- 	-- 	if client.workspace_folders then
-	-- 	-- 		local path = client.workspace_folders[1].name
-	-- 	-- 		if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-	-- 	-- 			return
-	-- 	-- 		end
-	-- 	-- 	end
+		-- on_init = function(client)
+		-- 	if client.workspace_folders then
+		-- 		local path = client.workspace_folders[1].name
+		-- 		if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+		-- 			return
+		-- 		end
+		-- 	end
 
-	-- 	-- 	client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-	-- 	-- 		runtime = { version = 'LuaJIT' },
-	-- 	-- 		workspace = {
-	-- 	-- 			checkThirdParty = false,
-	-- 	-- 			library = { vim.env.VIMRUNTIME },
-	-- 	-- 		},
-	-- 	-- 	})
-	-- 	-- end,
-	-- 	settings = { Lua = {} },
-	-- 	root_dir = function(fname)
-	-- 		return lspconfig.util.root_pattern(".luarc.json", ".git")(fname)
-	-- 			or lspconfig.util.find_git_ancestor(fname)
-	-- 			or vim.loop.os_homedir()
-	-- 	end
-	-- },
-	-- ['rust_analyzer'] = {
-		-- capabilities = capabilities,
-		-- cmd = { "rustup", "run", "stable", "rust-analyzer" },
-		-- settings = {
-		-- 	["rust-analyzer"] = {
-		-- 		checkOnSave = {
-		-- 			command = "clippy"
+		-- 	client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+		-- 		runtime = { version = 'LuaJIT' },
+		-- 		workspace = {
+		-- 			checkThirdParty = false,
+		-- 			library = { vim.env.VIMRUNTIME },
 		-- 		},
-		-- 		inlayHints = {
-		-- 			bindingModeHints = {
-		-- 				enable = false,
-		-- 			},
-		-- 			chainingHints = {
-		-- 				enable = true,
-		-- 			},
-		-- 			closingBraceHints = {
-		-- 				enable = true,
-		-- 				minLines = 25,
-		-- 			},
-		-- 			closureReturnTypeHints = {
-		-- 				enable = "never",
-		-- 			},
-		-- 			lifetimeElisionHints = {
-		-- 				enable = "never",
-		-- 				useParameterNames = false,
-		-- 			},
-		-- 			maxLength = 25,
-		-- 			parameterHints = {
-		-- 				enable = true,
-		-- 			},
-		-- 			reborrowHints = {
-		-- 				enable = "never",
-		-- 			},
-		-- 			renderColons = true,
-		-- 			typeHints = {
-		-- 				enable = true,
-		-- 				hideClosureInitialization = false,
-		-- 				hideNamedConstructor = false,
-		-- 			},
-		-- 		},
-		-- 		diagnostics = {
-		-- 			enable = false,
-		-- 			enableExperimental = true,
-		-- 			disabled = { "unused_variables", "unused_mut", "unlinked-file" }
-		-- 		},
-		-- 		flags = {
-		-- 			debounce_text_changes = 100
-		-- 		},
+		-- 	})
+		-- end,
+		settings = { Lua = { hint = { enable = true } } },
+		root_dir = function(fname)
+			return lspconfig.util.root_pattern(".luarc.json", ".git")(fname)
+				or lspconfig.util.find_git_ancestor(fname)
+				or vim.loop.os_homedir()
+		end
+	},
+	['rust_analyzer'] = {
+		cmd = { "rustup", "run", "stable", "rust-analyzer" },
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy"
+				},
+				inlayHints = {
+					bindingModeHints = {
+						enable = false,
+					},
+					chainingHints = {
+						enable = true,
+					},
+					closingBraceHints = {
+						enable = true,
+						minLines = 25,
+					},
+					closureReturnTypeHints = {
+						enable = "always",
+					},
+					lifetimeElisionHints = {
+						enable = "always",
+						useParameterNames = false,
+					},
+					maxLength = 25,
+					parameterHints = {
+						enable = true,
+					},
+					reborrowHints = {
+						enable = "always",
+					},
+					renderColons = true,
+					typeHints = {
+						enable = true,
+						hideClosureInitialization = false,
+						hideNamedConstructor = false,
+					},
+				},
+				diagnostics = {
+					enable = false,
+					enableExperimental = true,
+					disabled = { "unused_variables", "unused_mut", "unlinked-file" }
+				},
+				flags = {
+					debounce_text_changes = 100
+				},
 
 
-			-- }
-		-- }
-	-- },
+			}
+		}
+	},
 	["remark_ls"] = {
-		-- cmd = { "/usr/local/bin/marksman" },
-
-		settings = { files = { include = { "**/*.md" } } }
+		cmd = { "remark-language-server", "--stdio" },
+		filetypes = { "markdown" },
+		root_dir = lspconfig.util.root_pattern(".git", "."),
+		settings = {
+			remark = { requireConfig = true },
+			files = { include = { "**/*.md" } },
+		}
 	},
 	["bashls"] = {
 		settings = { filetypes = { "sh", "bash", "zsh" } }
@@ -181,7 +204,8 @@ local servers = {
 	["clangd"] = {},
 	["zls"] = {},
 	["html"] = {},
-	-- ["sumneko_lua"] = {}
+	["vimls"] = {},
+	["ruff"] = {},
 }
 
 local lsps = vim.tbl_keys(servers)
@@ -212,6 +236,7 @@ for server_name, server_setup in pairs(servers) do
 	if not functions.contains(server_name, lsps) then
 		goto continue
 	end
+
 	server_config = server_setup
 
 	if server_config.on_attach then
@@ -225,6 +250,9 @@ for server_name, server_setup in pairs(servers) do
 		server_config.on_attach = on_attach
 	end
 
+	if not server_config.capabilities then
+		server_config.capabilities = capabilities
+	end
 
 	lspconfig[server_name].setup(server_config)
 	::continue::

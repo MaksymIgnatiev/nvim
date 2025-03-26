@@ -5,6 +5,7 @@
 
 ---@class Functions
 local M = {}
+local env_values_hidden = {}
 
 ---Run the Tabularize command with promt for regex
 ---@param selected boolean
@@ -49,6 +50,7 @@ function M.contains(value, arr)
 	return false
 end
 
+-- Why?
 function M.regexify_word()
 	local word = vim.fn.input("Word (empty=word under cursor): ")
 	if word == "" then word = vim.fn.expand("<cword>") end
@@ -56,6 +58,40 @@ function M.regexify_word()
 		return string.format("[%s%s]", c:upper(), c:lower())
 	end)
 	vim.api.nvim_put({ regex }, "c", true, true)
+end
+
+---Function to conceal values in .env files
+---@generic T : string
+---@param char? T Optional char to replace default one: '*'
+function M.toggle_env_values(char)
+  -- Some more chars to explore: ●
+  char = char or '*'
+
+  local filename = vim.fn.expand('%:t')
+  if not filename:match('^%.env') then return end
+
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  if not env_values_hidden[bufnr] then
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+    local hidden_lines = {}
+
+    for i, line in ipairs(lines) do
+      local key, value = line:match('^([^=]+)%s*=%s*(.+)$')
+      if key and value then
+        local hidden_value = string.rep(char, #value)
+        hidden_lines[i] = key .. '=' .. hidden_value
+      else
+        hidden_lines[i] = line
+      end
+    end
+
+    env_values_hidden[bufnr] = lines
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, hidden_lines)
+  else
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, env_values_hidden[bufnr])
+    env_values_hidden[bufnr] = nil
+  end
 end
 
 return M

@@ -7,6 +7,8 @@ require("global.keyboard_qwerty_ru")
 local bufopts = { noremap = true, silent = true, expr = false }
 local functions = require("global.functions")
 local map = vim.keymap.set
+local expr = { noremap = true, silent = true, expr = true }
+
 
 -- Normal mode
 -- Telescope: find files
@@ -26,11 +28,16 @@ map('n', '<C-k>', '<cmd>cnext<CR>zz', bufopts)
 map('n', '<C-j>', '<cmd>cprev<CR>zz', bufopts)
 map('n', '<leader>k', '<cmd>lnext<CR>zz', bufopts)
 map('n', '<leader>j', '<cmd>lprev<CR>zz', bufopts)
+map("n", "<leader>lg", function()
+  require("telescope.builtin").live_grep({ default_text = vim.fn.expand("<cword>") })
+end, { noremap = true, silent = true })
 
+map("n", '<C-\\>', function()
+	require("telescope.builtin").live_grep() 
+end, { noremap = true, silent = true })
 
 -- Cancel selection/hithlighting
 map('n', '<Esc>', ':nohlsearch<Bar>echo<CR>', bufopts)
-
 
 
 map('n', 'J', 'mzJ`z', bufopts)
@@ -55,11 +62,7 @@ map('n', '<leader>x', '<cmd>!chmod +x "%"<CR>', bufopts)
 map('n', '<leader>sg', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 map('n', '<leader>sl', ':s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 
-map('n', '<leader>rn', '<Plug>(coc-rename)', bufopts)
-map('n', 'gd', '<Plug>(coc-definition)', bufopts)
-map('n', 'gr', '<Plug>(coc-references)', bufopts)
-map('n', 'K', ':call CocActionAsync("doHover")<CR>', bufopts)
-
+map('n', '<leader><F5>', vim.cmd.UndotreeToggle)
 
 -- Visual mode
 
@@ -99,21 +102,8 @@ map('x', '<leader>p', '"_dP', bufopts)
 
 -- Insert mode
 
-local expr = { noremap = true, silent = true, expr = true }
 
-
-
--- Set <C-Space> to trigger CoC suggestions in insert mode
-vim.api.nvim_set_keymap('i', '<C-Space>', 'coc#refresh()', { noremap = true, silent = true, expr = true })
-
--- Open intelisense window
--- map('i', '<C-Space>', 'coc#refresh()', expr)
 map('i', '<C-c>', '<Esc>', expr)
-map('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', expr)
-map('i', '<S-Tab>', 'coc#pum#visible() ? coc#pum#prev(1) : "<S-Tab>"', expr)
-map('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', expr)
-map('i', '<C-y>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-y>"', expr)
-
 
 -- Mixed modes
 map({'n', 'x', 'o'}, 's', function() require('flash').jump() end)

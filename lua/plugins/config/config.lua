@@ -4,7 +4,7 @@
 --- @class Config
 --- @field lsp LSP
 local M = {
-	lsp = { termux_exclude = { "rust_analyzer", "lua_ls" } }
+	lsp = { termux_exclude = { "rust_analyzer", "lua_ls", "clangd", "asm_lsp" } }
 }
 
 return M

@@ -1,30 +1,26 @@
+
+local fn = function ()
+	local args = {
+		exe = "prettier",
+		args = { "--stdin-filepath", vim.fn.shellescape(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())) },
+		stdin = true
+	}
+	return args
+
+end
+
 require('formatter').setup({
-    filetype = {
-        javascript = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-                    stdin = true
-                }
-            end
-        },
-        typescript = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
-                    stdin = true
-                }
-            end
-        },
-    }
+	filetype = {
+		javascript = { fn },
+		typescript = { fn },
+		svelte = { fn },
+	}
 })
 
 vim.cmd([[
   augroup FormatAutogroup
-    autocmd!
-    autocmd BufWritePost *.js,*.ts,*.jsx,*.tsx FormatWrite
+  autocmd!
+  autocmd BufWritePost *.js,*.ts,*.jsx,*.tsx,*.svelte,*.json,*.html,*.css FormatWrite
   augroup END
 ]])
 

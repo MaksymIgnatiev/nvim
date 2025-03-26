@@ -21,7 +21,7 @@ packer.startup(function(use)
 	local packer_bootstrap = ensure_packer()
 
 	for _, plugin in ipairs(plugins) do
-		use(plugin) -- using every plugin listed in list
+		use(plugin)
 	end
 
 	if packer_bootstrap then

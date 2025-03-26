@@ -1,4 +1,6 @@
 local rainbow_delimiters = require("rainbow-delimiters")
+local theme = require("global.theme.config")
+local highlight  = theme.highlight
 
 vim.g.rainbow_delimiters = {
 	strategy = {
@@ -17,10 +19,8 @@ vim.g.rainbow_delimiters = {
 	},
 }
 
-vim.cmd([[
-	highlight RainbowDelimiterGreen guifg=#0F0
-	highlight RainbowDelimiterYellow guifg=#FF0
-	highlight RainbowDelimiterOrange guifg=#FFA500
-	highlight RainbowDelimiterBlue guifg=#00F
-	highlight RainbowDelimiterCyan guifg=#00CCCC
-]])
+highlight("RainbowDelimiterGreen", "#0F0")
+highlight("RainbowDelimiterYellow", "#FF0")
+highlight("RainbowDelimiterOrange", "#FFA500")
+highlight("RainbowDelimiterBlue", "#00F")
+highlight("RainbowDelimiterCyan", "#00CCCC")

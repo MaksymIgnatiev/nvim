@@ -7,7 +7,7 @@ vim.o.smarttab = true
 vim.o.softtabstop = 4
 vim.o.mouse = 'a'
 vim.o.shell = '/bin/zsh'
-vim.cmd("syntax on")
+vim.o.syntax = 'on'
 vim.g.mapleader = ' '
 vim.g.airline_powerline_fonts = 1
 vim.o.termguicolors = true
@@ -16,8 +16,8 @@ vim.g.tmux_navigator_verbose = 1
 vim.opt.scrolloff = 8
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
-
+vim.o.wrap = true
+vim.opt.clipboard = "unnamedplus"
 
 vim.cmd [[
   highlight GitGutterAdd guifg=#00FF00 guibg=NONE
@@ -25,9 +25,8 @@ vim.cmd [[
   highlight GitGutterDelete guifg=#FF0000 guibg=NONE
 ]]
 
-
 vim.diagnostic.config({
-    update_in_insert = true, -- update the lsp server in insert mode
-    signs = true,            -- Keep signs in the sign column
-    underline = true,        -- Underline diagnostics in the text
+    update_in_insert = true,
+    signs = true,
+    underline = true,
 })
