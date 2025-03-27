@@ -19,9 +19,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
--- keep signcolumn persistant
-vim.opt.signcolumn = 'yes'
+---@class Client
+---@field buf number
 
+---Default `on_attach` function
+---@param client Client
+---@param bufnr number
 local on_attach = function(client, bufnr)
 	local opts = { buffer = client.buf }
 
@@ -36,7 +39,7 @@ local on_attach = function(client, bufnr)
 	map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
 	map('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 	map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-	map({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+	map({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
 	map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 	map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 	map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
@@ -62,8 +65,16 @@ end
 --- @field flags? table Additional flags to configure behavior, such as `debounce_text_changes`.
 --- @field name? string The name of the LSP server (typically inferred from the setup call).
 --- @field on_init? function Callback when the LSP client initializes.
---- @field on_exit? function Callback when the LSP client exits. Receives `(code, signal, client_id)`.
+--- @field on_exit? fun(code: number, signal: number, client_id: number) Callback when the LSP client exits. Receives `(code, signal, client_id)`.
 
+--- List of lsps that you want to be setup.
+---
+--- Add `["lsp_name"] = {}` to just indicate that you want to use this lsp. Mason will automatically install it
+---
+--- Add one of the listed above properties to the server config to modify it
+---
+--- If you want to exclude some lsps from being setup - add names of the lsps in the "plugins.config.config" module under `lsp_disable` field in `lsp` submodule
+---
 ---@type table<string, LSPSetupConfig>
 local servers = {
 	["cssls"] = {},
@@ -112,23 +123,6 @@ local servers = {
 		}
 	},
 	["lua_ls"] = {
-
-		-- on_init = function(client)
-		-- 	if client.workspace_folders then
-		-- 		local path = client.workspace_folders[1].name
-		-- 		if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-		-- 			return
-		-- 		end
-		-- 	end
-
-		-- 	client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-		-- 		runtime = { version = 'LuaJIT' },
-		-- 		workspace = {
-		-- 			checkThirdParty = false,
-		-- 			library = { vim.env.VIMRUNTIME },
-		-- 		},
-		-- 	})
-		-- end,
 		settings = { Lua = { hint = { enable = true } } },
 		root_dir = function(fname)
 			return lspconfig.util.root_pattern(".luarc.json", ".git")(fname)
@@ -206,6 +200,7 @@ local servers = {
 	["html"] = {},
 	["vimls"] = {},
 	["ruff"] = {},
+	["pyright"] = {},
 }
 
 local lsps = vim.tbl_keys(servers)
@@ -233,7 +228,12 @@ mason_lspconfig.setup {
 local server_config
 
 for server_name, server_setup in pairs(servers) do
-	if not functions.contains(server_name, lsps) then
+	if
+	-- skip servers that are not defined in the lsp list
+		not functions.contains(server_name, lsps)
+		-- skip servers that are defined in the disable lsp list
+		or functions.contains(server_name, config.lsp.lsp_disable)
+	then
 		goto continue
 	end
 
