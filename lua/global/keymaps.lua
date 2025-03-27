@@ -9,6 +9,8 @@ local functions = require("global.functions")
 local map = vim.keymap.set
 local expr = { noremap = true, silent = true, expr = true }
 
+-- Map `F1` to nothing
+map({'n', 'x'}, '<F1>', '<NOP>')
 
 -- Normal mode
 -- Telescope: find files
