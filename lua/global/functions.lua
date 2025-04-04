@@ -17,19 +17,20 @@ function M.TabularizeWithInput(selected)
 	end
 end
 
----Filter first string array with values from another (exclude values from first array that presist in second array)
+---Filter source array with values from filter array 
+---(exclude values from source array that presist in filter array; makes copy)
 ---@generic T
----@param array1 T[]
----@param array2 T[]
+---@param source T[]
+---@param filter T[]
 ---@return T[]
-function M.filterStrings(array1, array2)
+function M.filter(source, filter)
 	local lookup = {}
-	for _, value in ipairs(array2) do
+	for _, value in ipairs(filter) do
 		lookup[value] = true
 	end
 
 	local filtered = {}
-	for _, value in ipairs(array1) do
+	for _, value in ipairs(source) do
 		if not lookup[value] then table.insert(filtered, value) end
 	end
 
