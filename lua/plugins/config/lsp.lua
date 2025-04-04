@@ -50,9 +50,9 @@ end
 -- How to configure popular servers for inlay hints described here:
 -- https://github.com/MysticalDevil/inlay-hints.nvim
 
---- Table that defines all fields available for configuring an LSP client via `require("lspconfig")[lsp_server_name].setup`.
+--- Table that defines all fields available for configuring an LSP client via `require("lspconfig")[lsp_server_name].setup` (in theory).
 --- @class LSPSetupConfig
---- @field on_attach? fun(client: table, bufnr: number) Callback when the LSP client attaches to a buffer
+--- @field on_attach? fun(client: Client, bufnr: number) Callback when the LSP client attaches to a buffer
 --- @field capabilities? table Specifies client capabilities. Can be extended with tools like `cmp_nvim_lsp`.
 --- @field cmd? string[] Command to start the LSP server. Example: `{ "pyright-langserver", "--stdio" }`.
 --- @field filetypes? string[] List of file types supported by the LSP server. Example: `{ "python", "lua" }`.
@@ -201,23 +201,26 @@ local servers = {
 	["vimls"] = {},
 	["ruff"] = {},
 	["pyright"] = {},
+	["svelte"] = {},
+	["mojo"] = {},
 }
 
 local lsps = vim.tbl_keys(servers)
 
 -- if running inside termux - exclude specific lsp servers (because of incompatibility for `arm` architecture)
 if env.is_termux then
-	lsps = functions.filterStrings(lsps, config.lsp.termux_exclude)
+	lsps = functions.filter(lsps, config.lsp.termux_exclude)
 end
+
 
 require('mason').setup()
 
 local mason_lspconfig = require('mason-lspconfig')
 
-mason_lspconfig.setup {
-	-- Make sure that configured servers are installed
-	ensure_installed = lsps,
-}
+mason_lspconfig.setup({
+	-- Make sure that configured (and filtered) servers are installed
+	ensure_installed = functions.filter(lsps, config.lsp.mason_exclude),
+})
 
 
 -- Custom overrides for lsp server fields:
@@ -229,13 +232,11 @@ local server_config
 
 for server_name, server_setup in pairs(servers) do
 	if
-	-- skip servers that are not defined in the lsp list
+		-- skip servers that are not defined in the lsp list
 		not functions.contains(server_name, lsps)
 		-- skip servers that are defined in the disable lsp list
-		or functions.contains(server_name, config.lsp.lsp_disable)
-	then
-		goto continue
-	end
+		or functions.contains(server_name, config.lsp.disable)
+	then goto continue end
 
 	server_config = server_setup
 
@@ -255,5 +256,6 @@ for server_name, server_setup in pairs(servers) do
 	end
 
 	lspconfig[server_name].setup(server_config)
+
 	::continue::
 end
