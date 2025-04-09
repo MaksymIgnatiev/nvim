@@ -6,7 +6,7 @@ local config = require "plugins.config.config"
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local map = vim.keymap.set
 local lspconfig = require('lspconfig')
-
+local inlay_hints = require("inlay-hints")
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local on_attach = function(client, bufnr)
 	local opts = { buffer = client.buf }
 
-	require("inlay-hints").on_attach(client, bufnr)
+	inlay_hints.on_attach(client, bufnr)
 
 	map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
 	map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
@@ -39,7 +39,7 @@ local on_attach = function(client, bufnr)
 	map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
 	map('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 	map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-	map({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+	map({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
 	map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 	map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 	map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
@@ -203,6 +203,8 @@ local servers = {
 	["pyright"] = {},
 	["svelte"] = {},
 	["mojo"] = {},
+	["taplo"] = {},
+	["lemminx"] = {},
 }
 
 local lsps = vim.tbl_keys(servers)
@@ -232,11 +234,13 @@ local server_config
 
 for server_name, server_setup in pairs(servers) do
 	if
-		-- skip servers that are not defined in the lsp list
+	-- skip servers that are not defined in the lsp list
 		not functions.contains(server_name, lsps)
 		-- skip servers that are defined in the disable lsp list
 		or functions.contains(server_name, config.lsp.disable)
-	then goto continue end
+	then
+		goto continue
+	end
 
 	server_config = server_setup
 
