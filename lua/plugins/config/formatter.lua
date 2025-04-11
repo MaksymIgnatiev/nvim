@@ -1,4 +1,3 @@
-
 local fn = function ()
 	local args = {
 		exe = "prettier",

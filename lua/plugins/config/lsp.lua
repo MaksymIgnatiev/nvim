@@ -205,6 +205,7 @@ local servers = {
 	["mojo"] = {},
 	["taplo"] = {},
 	["lemminx"] = {},
+	["hls"] = {},
 }
 
 local lsps = vim.tbl_keys(servers)

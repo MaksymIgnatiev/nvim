@@ -1,10 +1,9 @@
 -- ~/.config/nvim/lua/plugins/config/presence.lua
 
 require("presence").setup({
-    -- General options
     auto_update         = true,
     neovim_image_text   = "Emacs",
-    main_image          = "neovim",
+    main_image          = "file",
     log_level           = nil,
     debounce_timeout    = 10,
     enable_line_number  = true,

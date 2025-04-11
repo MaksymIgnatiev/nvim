@@ -1,5 +1,9 @@
 -- ~/.config/nvim/lua/plugins/config/gitsigns.lua
 
+local theme = require("global.theme.config")
+local highlight = theme.highlight
+
+
 -- Setup Gitsigns with custom highlights
 require('gitsigns').setup {
   -- signs = {
@@ -13,13 +17,13 @@ require('gitsigns').setup {
 }
 
 -- Define highlight groups for Gitsigns
-vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#00FF00', bg = 'NONE', text = '+' })
-vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = '#FFFF00', bg = 'NONE', text = '~' })
-vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = '#FF0000', bg = 'NONE', text = '_' })
-vim.api.nvim_set_hl(0, 'GitSignsAddNr', { fg = '#00FF00', bg = 'NONE' })
-vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { fg = '#FFFF00', bg = 'NONE' })
-vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { fg = '#FF0000', bg = 'NONE' })
-vim.api.nvim_set_hl(0, 'GitSignsAddLn', { bg = '#003300' })
-vim.api.nvim_set_hl(0, 'GitSignsChangeLn', { bg = '#333300' })
-vim.api.nvim_set_hl(0, 'GitSignsDeleteLn', { bg = '#330000' })
+highlight('GitSignsAdd', '#00FF00',nil,  { text = '+' })
+highlight('GitSignsChange', '#FFFF00', nil,{ text = '~' })
+highlight('GitSignsDelete', '#FF0000', nil,{ text = '_' })
+highlight('GitSignsAddNr', '#00FF00')
+highlight('GitSignsChangeNr', '#FFFF00')
+highlight('GitSignsDeleteNr', '#FF0000')
+highlight('GitSignsAddLn', nil, '#003300')
+highlight('GitSignsChangeLn', nil, '#333300')
+highlight('GitSignsDeleteLn', nil, '#330000')
 

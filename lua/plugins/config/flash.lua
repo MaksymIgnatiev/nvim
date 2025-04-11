@@ -1,21 +1,26 @@
-vim.api.nvim_set_hl(0, "FlashBackdrop", { fg = "#808080" })
-vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#006400", bg = "#00FF00" })
--- vim.api.nvim_set_hl(0, "FlashCurrent", {  bg = "#006400" })
-vim.api.nvim_set_hl(0, "FlashLabel", {  bg = "#006400" })
+local theme = require("global.theme.config")
+local highlight = theme.highlight
+
+local flash_main_color =  "#006400"
+
+highlight("FlashBackdrop", "#808080")
+highlight("FlashLabel", nil, flash_main_color)
+highlight("FlashMatch", flash_main_color, "#00FF00")
+-- highlight("FlashCurrent", nil, flash_main_color)
 
 require('flash').setup({
-  highlight = {
-    backdrop = true,
-    groups = {
-      match = "FlashMatch",
-      current = "FlashCurrent",
-      backdrop = "FlashBackdrop",
-	  label = "FlashLabel"
-    },
-  },
-  modes = {
-    search = {
-      highlight = { backdrop = true },
-    },
-  },
+	highlight = {
+		backdrop = true,
+		groups = {
+			match = "FlashMatch",
+			current = "FlashCurrent",
+			backdrop = "FlashBackdrop",
+			label = "FlashLabel"
+		},
+	},
+	modes = {
+		search = {
+			highlight = { backdrop = true },
+		},
+	},
 })
