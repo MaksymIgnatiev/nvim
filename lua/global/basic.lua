@@ -1,6 +1,7 @@
 vim.g.airline_extensions_whitespace_enabled = 0
 vim.g.airline_extensions_whitespace_checks = {}
 vim.g.airline_extensions_whitespace_mixed_indent_algo = 2
+vim.g.airline_section_warning = "" -- this actually works
 
 vim.g.airline_powerline_fonts = 1
 vim.g.mapleader = ' '
