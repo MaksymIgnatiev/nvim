@@ -29,3 +29,14 @@ vim.diagnostic.config({
 	signs = true,
 	underline = true,
 })
+
+vim.filetype.add({
+	pattern = { [".*.zsh.*"] = "sh" },
+	extension = { zsh = "sh", },
+	filename = {
+		[".zshrc"] = "sh",
+		[".zprofile"] = "sh",
+		[".zshenv"] = "sh",
+		["*.zsh*"] = "sh",
+	},
+})
