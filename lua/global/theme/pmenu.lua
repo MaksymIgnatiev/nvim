@@ -8,4 +8,6 @@ highlight("PmenuSel", colors.fg, colors.darkgreen)
 highlight("PmenuSbar", nil, colors.ultradarkgreen)
 highlight("PmenuThumb", nil, colors.darkgreen)
 
+highlight("FloatBorder", colors.darkgreen, nil)
+
 link("NormalFloat", "Pmenu")
