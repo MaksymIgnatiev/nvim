@@ -46,6 +46,8 @@ local plugins = {
 	'wbthomason/packer.nvim',
 	'williamboman/mason-lspconfig.nvim',
 	'williamboman/mason.nvim',
+	'folke/noice.nvim',
+	'MunifTanjim/nui.nvim'
 }
 
 return plugins
