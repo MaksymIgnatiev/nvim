@@ -45,7 +45,10 @@ local on_attach = function(client, bufnr)
 	map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
 end
 
-
+local handlers = {
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+}
 
 -- How to configure popular servers for inlay hints described here:
 -- https://github.com/MysticalDevil/inlay-hints.nvim
@@ -206,6 +209,7 @@ local servers = {
 	["taplo"] = {},
 	["lemminx"] = {},
 	["hls"] = {},
+	["jsonls"] = {},
 }
 
 local lsps = vim.tbl_keys(servers)
@@ -258,6 +262,10 @@ for server_name, server_setup in pairs(servers) do
 
 	if not server_config.capabilities then
 		server_config.capabilities = capabilities
+	end
+
+	if not server_config.handlers then
+		server_config.handlers = handlers
 	end
 
 	lspconfig[server_name].setup(server_config)
