@@ -210,6 +210,7 @@ local servers = {
 	["lemminx"] = {},
 	["hls"] = {},
 	["jsonls"] = {},
+	["yamlls"] = {},
 }
 
 local lsps = vim.tbl_keys(servers)
