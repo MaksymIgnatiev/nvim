@@ -66,6 +66,15 @@ map('n', '<leader>sl', ':s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 
 map('n', '<leader><F5>', vim.cmd.UndotreeToggle)
 
+-- Aliases for folding code
+-- Open fold
+map('n', 'z[', 'zo')
+-- Close fold
+map('n', 'z]', 'zc')
+-- Toggle fold
+map('n', 'z-', 'za')
+
+
 -- Visual mode
 
 -- Yank globaly ("+ register)
