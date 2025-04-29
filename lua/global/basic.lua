@@ -23,6 +23,9 @@ vim.o.syntax = 'on'
 vim.o.tabstop = 4
 vim.o.termguicolors = true
 vim.o.wrap = true
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevel = 999
 
 vim.diagnostic.config({
 	update_in_insert = true,
