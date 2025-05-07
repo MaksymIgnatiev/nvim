@@ -1,6 +1,5 @@
--- ./lua/env.lua
+--- @alias OSName '"Linux"' | '"WindowsNT"' | '"Darwin"'
 
---- @alias OSName '"Linux"' | '"WindowsNT"'
 --- @class EnvModule
 --- @field os OSName Operating system name (string literal type)
 --- @field is_termux boolean Is running in Termux or not
