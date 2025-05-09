@@ -211,7 +211,16 @@ local servers = {
 	["hls"] = {},
 	["jsonls"] = {},
 	["yamlls"] = {},
+	["sqlls"] = {
+		cmd = { "sql-language-server", "up", "--method", "stdio" },
+		filetypes = { "sql" },
+		root_dir = function() return vim.loop.cwd() end,
+
+	},
+	-- ["postgres_lsp"] = {},
 }
+
+vim.lsp.enable("postgres_lsp")
 
 local lsps = vim.tbl_keys(servers)
 
