@@ -4,7 +4,7 @@ local functions = require( "global.functions")
 ---(they are listed inside the current directory)
 ---e.g. "lsp", "flash"
 ---@type string[]
-local config_blacklist = {}
+local config_blacklist = { "noice" }
 
 
 ---Require all files in the given directory, except for `init.lua` and those that are listed int the blacklist
