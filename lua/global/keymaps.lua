@@ -16,7 +16,6 @@ map({'n', 'x'}, '<F1>', '<NOP>')
 -- Telescope: find files
 map('n', '<C-p>', ':Telescope find_files<CR>', bufopts)
 
-
 -- Telescope: live grep the contence in all files
 map('n', '<C-b>', ':Telescope live_grep<CR>', bufopts)
 
@@ -35,7 +34,7 @@ map("n", "<leader>lg", function()
 end, { noremap = true, silent = true })
 
 map("n", '<C-\\>', function()
-	require("telescope.builtin").live_grep() 
+	require("telescope.builtin").live_grep()
 end, { noremap = true, silent = true })
 
 -- Cancel selection/hithlighting
@@ -73,6 +72,16 @@ map('n', 'z[', 'zo')
 map('n', 'z]', 'zc')
 -- Toggle fold
 map('n', 'z-', 'za')
+
+-- Resizing windows
+-- Add height
+map('n', 'rh', '<cmd>vertical resize -2<CR>', bufopts)
+-- Remove height
+map('n', 'rl', '<cmd>vertical resize +2<CR>', bufopts)
+-- Add width
+map('n', 'rj', '<cmd>resize -2<CR>', bufopts)
+-- Remove width
+map('n', 'rk', '<cmd>resize +2<CR>', bufopts)
 
 
 -- Visual mode
