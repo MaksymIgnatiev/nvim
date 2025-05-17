@@ -20,7 +20,7 @@ vim.g.rainbow_delimiters = {
 }
 
 highlight("RainbowDelimiterGreen", "#00AA00")
-highlight("RainbowDelimiterYellow", "#CCCC00")
-highlight("RainbowDelimiterOrange", "#FFA500")
-highlight("RainbowDelimiterBlue", "#0000DD")
+highlight("RainbowDelimiterYellow", "#CCDD00")
+highlight("RainbowDelimiterOrange", "#FFAA00")
+highlight("RainbowDelimiterBlue", "#4444FF")
 highlight("RainbowDelimiterCyan", "#00CCCC")
