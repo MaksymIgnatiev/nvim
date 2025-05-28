@@ -48,7 +48,8 @@ local plugins = {
 	'williamboman/mason.nvim',
 	'folke/noice.nvim',
 	'MunifTanjim/nui.nvim',
-	{ 'kndndrj/nvim-dbee', run = function () require("dbee").install() end }
+	{ 'kndndrj/nvim-dbee', run = function () require("dbee").install() end },
+	'marilari88/twoslash-queries.nvim'
 }
 
 return plugins
