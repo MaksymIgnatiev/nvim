@@ -12,6 +12,8 @@ require('formatter').setup({
 	filetype = {
 		javascript = { fn },
 		typescript = { fn },
+		javascriptreact = { fn },
+		typescriptreact= { fn },
 		svelte = { fn },
 	}
 })
