@@ -49,7 +49,8 @@ local plugins = {
 	'folke/noice.nvim',
 	'MunifTanjim/nui.nvim',
 	{ 'kndndrj/nvim-dbee', run = function () require("dbee").install() end },
-	'marilari88/twoslash-queries.nvim'
+	'marilari88/twoslash-queries.nvim',
+	'klimeryk/vim-monkey-c'
 }
 
 return plugins
